@@ -1,0 +1,86 @@
+ <!--Pololu Simple Motor Controller settings file. http://www.pololu.com/docs/0J44-->
+ <!--Created on: 2013-08-31 09:45:35-->
+ <!--Device model: Pololu Simple High-Power Motor Controller 18v25-->
+ <!--Device serial number: 3200-7106-3147-3331-1823-1843-->
+ <!--Device firmware version: 1.04-->
+ <SmcSettings version="1">
+ <InputMode>SerialUsb</InputMode>
+ <MixingMode>None</MixingMode>
+ <DisableSafeStart>false</DisableSafeStart>
+ <IgnorePotDisconnect>false</IgnorePotDisconnect>
+ <IgnoreErrLineHigh>false</IgnoreErrLineHigh>
+ <NeverSuspend>false</NeverSuspend>
+ <TempLimitGradual>true</TempLimitGradual>
+ <OverTemp Min="700" Max="800" />
+ <LowVinShutoffTimeout>250</LowVinShutoffTimeout>
+ <LowVinShutoffMv>5500</LowVinShutoffMv>
+ <LowVinStartupMv>6000</LowVinStartupMv>
+ <HighVinShutoffMv>25000</HighVinShutoffMv>
+ <SerialMode>Binary</SerialMode>
+ <SerialDeviceNumber>13</SerialDeviceNumber>
+ <CommandTimeout>0</CommandTimeout>
+ <CrcMode>Disabled</CrcMode>
+ <UartResponseDelay>false</UartResponseDelay>
+ <UseFixedBaudRate>true</UseFixedBaudRate>
+ <FixedBaudRate>9600</FixedBaudRate>
+ <!--Input Settings-->
+ <Rc1>
+ <AlternateUse>None</AlternateUse>
+ <Invert>false</Invert>
+ <ScalingDegree>0</ScalingDegree>
+ <Error Min="2000" Max="10000" />
+ <Input Min="4000" Max="8000" />
+ <InputNeutral Min="5900" Max="6100" />
+ </Rc1>
+ <Rc2>
+ <AlternateUse>None</AlternateUse>
+ <Invert>false</Invert>
+ <ScalingDegree>0</ScalingDegree>
+ <Error Min="2000" Max="10000" />
+ <Input Min="4000" Max="8000" />
+ <InputNeutral Min="5900" Max="6100" />
+ </Rc2>
+ <Analog1>
+ <AlternateUse>None</AlternateUse>
+ <PinMode>Floating</PinMode>
+ <Invert>false</Invert>
+ <ScalingDegree>0</ScalingDegree>
+ <Error Min="0" Max="4095" />
+ <Input Min="40" Max="4055" />
+ <InputNeutral Min="2015" Max="2080" />
+ </Analog1>
+ <Analog2>
+ <AlternateUse>None</AlternateUse>
+ <PinMode>Floating</PinMode>
+ <Invert>false</Invert>
+ <ScalingDegree>0</ScalingDegree>
+ <Error Min="0" Max="4095" />
+ <Input Min="40" Max="4055" />
+ <InputNeutral Min="2015" Max="2080" />
+ </Analog2>
+ <!--Motor Settings-->
+ <PwmPeriodFactor>0</PwmPeriodFactor>
+ <MotorInvert>true</MotorInvert>
+ <SpeedZeroBrakeAmount>16</SpeedZeroBrakeAmount>
+ <SpeedUpdatePeriod>100</SpeedUpdatePeriod>
+ <ForwardLimits>
+ <MaxSpeed>3200</MaxSpeed>
+ <MaxAcceleration>100</MaxAcceleration>
+ <MaxDeceleration>200</MaxDeceleration>
+ <BrakeDuration>2000</BrakeDuration>
+ <StartingSpeed>0</StartingSpeed>
+ </ForwardLimits>
+ <ReverseLimits>
+ <MaxSpeed>3200</MaxSpeed>
+ <MaxAcceleration>100</MaxAcceleration>
+ <MaxDeceleration>200</MaxDeceleration>
+ <BrakeDuration>2000</BrakeDuration>
+ <StartingSpeed>0</StartingSpeed>
+ </ReverseLimits>
+ <!--Advanced Settings-->
+ <PulsePeriod Min="9" Max="100" />
+ <RcTimeout>500</RcTimeout>
+ <ConsecGoodPulses>2</ConsecGoodPulses>
+ <VinMultiplierOffset>0</VinMultiplierOffset>
+ </SmcSettings>
+ */
