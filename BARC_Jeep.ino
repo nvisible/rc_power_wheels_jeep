@@ -14,14 +14,14 @@
  Circuits@Home USB Host Shield 2.0          http://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino
  Pololu Simple Motor Controller 18v25       http://www.pololu.com/catalog/product/1381/resources
  Pololu JRK Motor Controller 12v12          http://www.pololu.com/catalog/product/1393/resources
- Pololu Generic Linear Actuator 4" .6"/s    http://www.pololu.com/catalog/product/2333
+ Pololu Concentric Linear Actuator          http://www.pololu.com/catalog/product/2319
  Xbox 360 Wireless USB Adapter
  Xbox 360 Wireless Controller
  
  HARDWARE CONFIGURATION
  
  * +-------+         +---------------+  USB    +-----------------+
- * |Arduino+-------->|USB Host Shield+-------->|XBOX USB Receiver|****/>    </****XBOX Wireless Controller
+ * |Arduino+-------->|USB Host Shield+-------->|XBOX USB Receiver|****//****XBOX Wireless Controller
  * +-+-----+         +---------------+         +-----------------+                  
  * |
  * | Tx (TTL Serial)
@@ -49,9 +49,10 @@
  * Everything sits on board the Jeep. All TTL Serial connections are hard-wired into the Arduino 
  * and motor controllers. The Xbox Receiver is attached to a metal pole antenna-style.
  * 
- * The current linear actuator may be too slow. It can move 110lbs of force but at .6"/s. There
- * is a faster model that does 22lbs @ 1.5"/s http://www.pololu.com/catalog/product/2345
- * 
+ * Currently using a faster linear actuator that does 34lbs @ 1.7"/s 
+ * http://www.pololu.com/catalog/product/2319
+ * Would still like to use the 110lb actuator that I have now that the front steering has been redesigned.
+ * There is a shorter throw in the new steering linkages and at times I've found the 34lb push 
  */
 
 // *****Includes for the Circuits@Home USB Shield *****
@@ -123,13 +124,13 @@ void loop(){
 
 
     /* The sample code for the Xbox controller gave a deadzone of -7500 to 7500.
-     This code maintains that dead zone for now (I would like to make it
-     adjustable while the sketch is running). */
+     This code maintains a dead zone for now but it still needs to be calibrated 
+     (I would like to make it adjustable while the sketch is running). */
 
     leftStickX = map(XboxRCV.getAnalogHat(LeftHatX,0), -32768, 32767, 0, 3880);  // Analog stick moved
     // Set the dead band in the left analog stick. Would like this to be adjustable
     if ((leftStickX >= 1500) && (leftStickX <= 1983)){
-      leftStickX = 1400; 
+      leftStickX = 1400; // The value of leftStickX needs to be a variable 
     }
   }
 
@@ -150,7 +151,7 @@ void loop(){
   // *      SEND SERIAL COMMANDS   *
   // *******************************
   /* Reserved for serial commands sent to motor controllers to adjust 
-   option parameters. Also to process the response from those 
+   optional parameters. Also to process the response from those 
    commands if applicable. */
 
 
@@ -167,7 +168,7 @@ void loop(){
    straight from the manual linked above. We'll be using a low resolution speed value expressed in
    percentage (0 to 100).
    
-   "Alternate Interpretation: The allowed values for the second speed data byte are 0Ã¢â‚¬â€œ100, 
+   "Alternate Interpretation: The allowed values for the second speed data byte are 0 - 100, 
    so you can ignore the first speed data byte (always set it to 0), and consider the 
    second data byte to simply be the speed percentage. For example, to drive the motor at 
    53% speed, you would use byte1=0 and byte2=53."
@@ -194,7 +195,7 @@ void loop(){
   if (smcSpeed < 0)  // Let's reverse since the speed is negative
   {
     Serial.write(6);  // motor reverse command
-    smcSpeed = -smcSpeed;  // make smcSpeed positive b/c the command can only read positive numbers
+    smcSpeed = -smcSpeed;  // make smcSpeed positive b/c the Pololu command can only read positive numbers
   }
   else
   {
@@ -205,7 +206,7 @@ void loop(){
 
   // Now let's send the actual speed
   Serial.write(smcSpeed);
-  delay(1);  // For stability
+  delay(1);  // For stability, don't know if I need it here or at the end of the whole sketch
 
 
   // NEXT SECTION SENDS THE POSITION TO THE LINEAR ACTUATOR VIA THE JRK
