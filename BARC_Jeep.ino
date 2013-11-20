@@ -185,26 +185,26 @@ void loop(){
    */
   // smcSpeed should be a number from -100 to 100
 
-    // First send the Pololu SMC command byte
+    // First send the Pololu SMC command byte (byte 1 of 4)
   Serial.write(pololuCommandByte);
 
-  // Next, send the SMC device number
+  // Next, send the SMC device number (byte 2 of 4)
   Serial.write(smcDeviceNumber);
 
   // Here, let's determine the speed and direction.
   if (smcSpeed < 0)  // Let's reverse since the speed is negative
   {
-    Serial.write(6);  // motor reverse command
+    Serial.write(smcREVbyte);  // motor reverse command (byte 3 of 4)
     smcSpeed = -smcSpeed;  // make smcSpeed positive b/c the Pololu command can only read positive numbers
   }
   else
   {
-    Serial.write(5);  // motor forward command
+    Serial.write(smcFWDbyte);  // motor forward command (byte 3 of 4)
   }
 
   Serial.write(smcSpeedDataByte3);  // Always zero (for now) because of the protocol being used
 
-  // Now let's send the actual speed
+  // Now let's send the actual speed (byte 4 of 4)
   Serial.write(smcSpeed);
   delay(1);  // For stability, don't know if I need it here or at the end of the whole sketch
 
